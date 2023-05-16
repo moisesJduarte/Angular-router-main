@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SwiperModule } from 'swiper/angular';
 import { SharedModule } from '../shared/shared.module';
+import { QuicklinkModule } from 'ngx-quicklink';
+
 
 import { WebsiteRoutingModule } from './website-routing.module';
 import { NavComponent } from './components/nav/nav.component';
@@ -13,7 +15,6 @@ import { RecoveryComponent } from './pages/recovery/recovery.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { ProductDetailComponent } from './pages/product-detail/product-detail.component';
 import { LayoutComponent } from './components/layout/layout.component';
-
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { LayoutComponent } from './components/layout/layout.component';
     CommonModule,
     WebsiteRoutingModule,
     SwiperModule,
-    SharedModule
+    SharedModule,
+    QuicklinkModule
 
   ]
 })
