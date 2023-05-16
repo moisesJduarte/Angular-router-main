@@ -18,7 +18,7 @@ export class ProductsService {
     private http: HttpClient
   ) { }
 
-  getByCategory(categoryId: string, limit?: number, offset?: number){
+  getByCategory(categoryId: string, limit?: number, offset?: number) {
     let params = new HttpParams();
     if (limit && offset != null) {
       params = params.set('limit', limit);
@@ -34,15 +34,15 @@ export class ProductsService {
       params = params.set('offset', offset);
     }
     return this.http.get<Product[]>(`${this.apiUrl}/products`, { params, context: checkTime() })
-    .pipe(
-      retry(3),
-      map(products => products.map(item => {
-        return {
-          ...item,
-          taxes: .19 * item.price
-        }
-      }))
-    );
+      .pipe(
+        retry(3),
+        map(products => products.map(item => {
+          return {
+            ...item,
+            taxes: .19 * item.price
+          }
+        }))
+      );
   }
 
   fetchReadAndUpdate(id: string, dto: UpdateProductDTO) {
@@ -54,20 +54,20 @@ export class ProductsService {
 
   getOne(id: string) {
     return this.http.get<Product>(`${this.apiUrl}/products/${id}`)
-    .pipe(
-      catchError((error: HttpErrorResponse) => {
-        if (error.status === HttpStatusCode.Conflict) {
-          return throwError('Algo esta fallando en el server');
-        }
-        if (error.status === HttpStatusCode.NotFound) {
-          return throwError('El producto no existe');
-        }
-        if (error.status === HttpStatusCode.Unauthorized) {
-          return throwError('No estas permitido');
-        }
-        return throwError('Ups algo salio mal');
-      })
-    )
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          if (error.status === HttpStatusCode.Conflict) {
+            return throwError('Algo esta fallando en el server');
+          }
+          if (error.status === HttpStatusCode.NotFound) {
+            return throwError('El producto no existe');
+          }
+          if (error.status === HttpStatusCode.Unauthorized) {
+            return throwError('No estas permitido');
+          }
+          return throwError('Ups algo salio mal');
+        })
+      )
   }
 
   create(dto: CreateProductDTO) {
